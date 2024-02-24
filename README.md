@@ -1,2 +1,2 @@
-# tutorials
-Repo to store sample code source for different language tutorials
+# Tutorials
+A Repository of sample code source from different language tutorials
