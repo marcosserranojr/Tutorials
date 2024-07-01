@@ -50,7 +50,7 @@ app.use(errorHandlerMiddleWare); // Error handling
 
 //======================================================================================
 // Express server PORT
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 //============================================================================================
 // Database Connection
