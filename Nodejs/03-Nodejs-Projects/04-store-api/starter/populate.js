@@ -1,6 +1,6 @@
 //###########################################
 // Dynamically adds the products.json content
-// to the database
+// to the database you connect to.
 //============================================
 
 require('dotenv').config();
@@ -10,7 +10,7 @@ const jsonProducts = require('./products.json');
 
 
 
-
+// Main 
 const start = async () =>{
 
     try{
