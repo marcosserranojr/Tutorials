@@ -76,7 +76,7 @@ Email Validation Regex
 
 https://www.apimatic.io/ 
 
-- Login - v6tempest@yahoo.com - Mo$23112311
+- Login - v6tempest@yahoo.com - old PW
 - import doc.json file saved
 - Edit api import
     - server configuration - update url
