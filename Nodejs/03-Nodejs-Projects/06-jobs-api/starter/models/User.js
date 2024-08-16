@@ -35,6 +35,8 @@ const UserSchema = new mongoose.Schema({
 
 })
 
+//////////////////////////// FUNCTIONS //////////////////////////////////////////////////////////////////////////////////////////////////
+
 // This replaces the code commented out in the auth.js controller register method
 // Reference: https://mongoosejs.com/docs/api/schema.html#Schema.prototype.pre()
 UserSchema.pre('save', async function(){
@@ -50,5 +52,9 @@ UserSchema.methods.createJWT = function () {
     
 }
 
+UserSchema.methods.comparePassword = async function (candidatePassword){
+    const isMatch = await bcrypt.compare(candidatePassword, this.password);    
+    return isMatch;
+}
 
 module.exports = mongoose.model('User', UserSchema);

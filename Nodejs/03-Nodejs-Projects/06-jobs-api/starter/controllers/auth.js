@@ -8,7 +8,7 @@
 
 const User = require('../models/User');
 const {StatusCodes}= require('http-status-codes');
-const {BadRequestError}= require('../errors/index');
+const {BadRequestError, UnauthenticatedError}= require('../errors/index');
 
 //const jwt = require('jsonwebtoken');
 
@@ -20,8 +20,11 @@ const register = async (req, res) => {
 
     // a user object based on the schema is created using the data from the post api call and assigned to a user object variable
    const user = await User.create({...req.body});  
+
+   console.log("Hitting CONTROLLER");
    const token = user.createJWT();//Call the method from User.js in models 
    res.status(StatusCodes.CREATED).json({user:{name: user.name}, token});
+
         
    /*------- THIS FUNCTIONALITY IS ESSENTIAL DEFINED IN THE MODEL and handeld by MongoDB
 
@@ -31,8 +34,6 @@ const register = async (req, res) => {
 
     throw new BadRequestError('Please Provide the missing Name, Email, or Password');
    }*/
-
-
 /*-------- THIS FUNCTIONALITY WAS MOVED TO THE MODEL User.js for a cleaner approach
 
    const {name, email, password} = req.body;
@@ -59,7 +60,33 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
     
-    res.send(" Login User");
+   // res.send(" Login User"); //Test route uses controller
+   const {email, password}= req.body;
+   
+
+   if(!email || !password) //Bypass the MongoDB validation to provide a user friendly error
+   {
+     throw new BadRequestError(' Pleae provide an Email and Password');
+   }
+
+   const user = await User.findOne({email});
+   //console.log(user);
+
+   if(!user){
+    
+    throw new UnauthenticatedError('User Not Found');
+   }
+
+   const isPasswordCorrect = await user.comparePassword(password);
+   
+   if (!isPasswordCorrect)
+   {
+     throw new UnauthenticatedError("Password is Invalid");
+   }
+   
+   const token = user.createJWT();    
+   res.status(StatusCodes.OK).json({user:{name:user.name}, token});
+
 }
 
 module.exports= {register, login};

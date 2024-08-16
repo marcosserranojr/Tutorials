@@ -1,0 +1,254 @@
+openapi: 3.0.0
+info:
+  title: Jobs API
+  contact: {}
+  version: '1.0'
+servers:
+- url: http://localhost:3000/api/v1
+  variables: {}
+paths:
+  /auth/login:
+    post:
+      tags:
+      - Auth
+      summary: Login-user
+      operationId: Login-user
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/Login-user-Request'
+              - example:
+                  email: rfretter@va.gov
+                  password: secret
+            example:
+              email: rfretter@va.gov
+              password: secret
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/register:
+    post:
+      tags:
+      - Auth
+      summary: register-user
+      operationId: register-user
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/register-user-request'
+              - example:
+                  name: Mustafa Bell
+                  email: mbell@va.gov
+                  password: secret
+            example:
+              name: Mustafa Bell
+              email: mbell@va.gov
+              password: secret
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /jobs:
+    post:
+      tags:
+      - Jobs
+      summary: create-job
+      operationId: create-job
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/create-job-request'
+              - example:
+                  company: Netflix
+                  position: Back-end Developer
+            example:
+              company: Netflix
+              position: Back-end Developer
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    get:
+      tags:
+      - Jobs
+      summary: get-AllJobs
+      operationId: get-AllJobs
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /jobs/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: the job id
+    get:
+      tags:
+      - Jobs
+      summary: get-Single-Job
+      operationId: get-Single-Job
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    
+    patch:
+      tags:
+      - Jobs
+      summary: Update-Single-Job
+      operationId: Update-Single-Job
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/Update-Single-Job-Request'
+              - example:
+                  company: Google INC.
+                  position: Full-Stack Developer
+            example:
+              company: Google INC.
+              position: Full-Stack Developer
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    delete:
+      tags:
+      - Jobs
+      summary: Delete-Single-Job
+      operationId: Delete-Single-Job
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+components:
+  schemas:
+    Login-user-Request:
+      title: Login-user-Request
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: rfretter@va.gov
+        password: secret
+    register-user-request:
+      title: register-user-request
+      required:
+      - name
+      - email
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: Mustafa Bell
+        email: mbell@va.gov
+        password: secret
+    create-job-request:
+      title: create-job-request
+      required:
+      - company
+      - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: Netflix
+        position: Back-end Developer
+    Update-Single-Job-Request:
+      title: Update-Single-Job-Request
+      required:
+      - company
+      - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: Google INC.
+        position: Full-Stack Developer
+    Delete-Single-Job-Request:
+      title: Delete-Single-Job-Request
+      required:
+      - company
+      - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: Google INC.
+        position: Full-Stack Developer
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+- name: Auth
+  description: ''
+- name: Jobs
+  description: ''

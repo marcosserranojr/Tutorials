@@ -10,7 +10,7 @@
 const express = require("express");
 const router = express.Router();
 
-const {getAllJobs, getSingleJob, createSingleJob, updateSingelJob, deleteSingelJob} = require('../controllers/jobs')
+const {getAllJobs, getSingleJob, createSingleJob, updateSingleJob, deleteSingleJob} = require('../controllers/jobs')
 
 /////-------------------------------------------------------
 
@@ -18,7 +18,7 @@ const {getAllJobs, getSingleJob, createSingleJob, updateSingelJob, deleteSingelJ
 //////// TWO ROUTES and the Controller referenced for each HTTP Method
 
 router.route('/').post(createSingleJob).get(getAllJobs);
-router.route('/:id').get(getSingleJob).delete(deleteSingelJob).patch(updateSingelJob);
+router.route('/:id').get(getSingleJob).delete(deleteSingleJob).patch(updateSingleJob);
 
 
 
