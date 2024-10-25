@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+"""
 #First exercise - find length of string
 strText = input("Please enter a string of text. ")
 print("You entered: ",strText)
@@ -81,3 +82,21 @@ last = input[count-1]
 print("The last Leter is: "+input[count-1]);
 
 print("The Letter "+last+" Appears "+ str(input.count(last))+ " Times")
+"""
+
+#===========================================================================================================
+
+#Extra - End of chapter extra examples
+
+visitor = input("WHat is your name? ")
+visitor = visitor.capitalize();
+
+print(f"Hello, {visitor}!");
+
+age = int(input(f"What is your age, {visitor}? "))
+
+roundyears = 10 - (age % 10);
+
+print ("So in {0} yeares you will be {1}!".format(roundyears, age + roundyears))
+
+print ("Hint: {0} in Hexidecimal is equal to {1}".format(age + roundyears,hex(age + roundyears )))
