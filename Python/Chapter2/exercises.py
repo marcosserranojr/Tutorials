@@ -155,3 +155,19 @@ for val in range(50):
     if val % 10 == 9: #every number divided by 10 with a remainder of 9 print a new line
         print()
     
+
+ #== Exercise 8 =======   
+
+num1 = int(input("Please Enter an Integer. "));
+num2 = int(input("Please Enter a Second Interger. "));
+
+if num1 > num2:
+    num1, num2 = num2, num1
+
+
+total = 0;
+for x in range(num1, (num2 +1)):
+    total = total + x
+    
+
+print("The sum of numbers {0} and {1} is {2}.".format( num1, num2, total));
