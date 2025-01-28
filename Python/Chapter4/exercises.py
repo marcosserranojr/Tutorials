@@ -6,6 +6,7 @@
 # chmod a+x ./exercises.py
 # ./exercises.py
 #==========================================================
+
 """
 #=== Exercise Number 1 ==================================================
 # --- Validate input as positive interger
@@ -132,7 +133,7 @@ result_list = postive_only(elements)
 
 print("Positive List: ", result_list)
 
-"""
+
 #=== Exercise Number 7 ================================================================================
 #---- Return a list of numbers greater than the boundary from a list of variable number arguments 
 
@@ -149,4 +150,104 @@ result = num_of_greater(7,19,-30,22,55,97,48, boundary=17)
 print("Those numbers greater than the boundary: ", result)
 
 #=== Exercise Number 8 ================================================================================
-#---- 1:57:29 
+#---- Nested function
+
+def outer(x,y):
+    def inner():
+        return x+y
+
+    return inner #Note: the return of the outer is the return of the inner adding "inner()" breaks the logic since that returns a call to the function 
+
+f = outer(5,5)
+
+print(f"Return value is {f()}")
+
+
+#=== Exercise Number 9 ================================================================================
+#---- rewritting the Nested function above
+
+def outer():
+    def inner(x, y):
+        return x + y
+    
+    return inner
+
+
+f = outer()
+
+print(f"Return value is {f(5,6)}")
+
+
+#=== Exercise Number 10 ================================================================================10
+#---- rewritting the Nested function above to use lamba
+
+def outer():
+    return lambda x,y: x+y
+
+f = outer()
+
+print(f"Return value is {f(5,6)}")
+
+
+#=== Exercise Number 11 ================================================================================10
+#---- Function takes two lists and returns a list on common items using sets
+
+def get_common_elements( list1, list2):
+    s1 = set(list1)
+    s2 = set(list2)
+
+    return list(s1 & s2)
+    
+
+
+first_list = ["foo", 77, "tractor" ]
+second_list = [77,"skyscraper", 99, "foo"]
+
+print(get_common_elements(first_list, second_list))
+
+
+#=== Exercise Number 12 ================================================================================10
+#---- Function takes as parameters a number and a dictionary and adds that number to every value in the dictionary
+
+def add_number(operand, dictionary):
+    for key in dictionary.keys():
+        dictionary[key] = dictionary[key]+operand #Note: we reference the value of the dictiontary by the reference key and add the number 
+                                                # then reassign the new value to the appropriate referenced position overriding previous value.
+
+    return dictionary
+
+
+myDict = {
+    "low" : 7,
+    "medium" : 50,
+    "high" : 99
+
+}
+
+print(add_number(1, myDict))
+
+"""
+#=== Exercise Number 13 ================================================================================10
+#---- Function returns the index of a list where the nth occurence of that item appears
+
+# 1. parameter - Search list    2. Parameter - search item in list  3. Parameter - represents the number of occurences
+
+
+def  nth_occurence_of (alist, item, n):
+    if alist.count (item) < n:
+        return -1
+    start_at = 0
+
+    for x in range(n): # range loop no more that n times
+        
+        found_at = alist.index(item, start_at) # returns index where item is found once
+        print("found at:", found_at,"Index Position", start_at)        
+        start_at = found_at +1 # move the start index by one so that it continues down the list
+        
+    return found_at # returns the index of the last time found based on the range given
+
+
+mylist = ["a car", 66, "a car", 9, "bagle", [1,2,3], "a car", "sky"]
+nth = 3
+
+print(f"The {nth} occurence of 'a car' is at index: {nth_occurence_of(mylist, 'a car', nth)}")
