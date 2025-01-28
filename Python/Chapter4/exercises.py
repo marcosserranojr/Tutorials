@@ -226,7 +226,7 @@ myDict = {
 
 print(add_number(1, myDict))
 
-"""
+
 #=== Exercise Number 13 ================================================================================10
 #---- Function returns the index of a list where the nth occurence of that item appears
 
@@ -251,3 +251,81 @@ mylist = ["a car", 66, "a car", 9, "bagle", [1,2,3], "a car", "sky"]
 nth = 3
 
 print(f"The {nth} occurence of 'a car' is at index: {nth_occurence_of(mylist, 'a car', nth)}")
+
+"""
+
+#=== Exercise Summary ================================================================================10
+#---- Card playing function
+
+
+import random
+
+#==== Create and shuffle a deck and return it ===
+def suffle():
+    #create a list of possible card types
+    colors = ("Diamonds", "Hearts", "Spades", "Clubs")
+    ranks = ("Ace", "King", "Queen", "Jack") + tuple( num for num in range(10, 1, -1))
+
+    #testing the tuple
+    test = (tuple( num for num in range(10, 1, -1))) #tuple: immutable array from a range starting at 10 decreasing by 1 untill one less the end range.
+
+    #Full deck created
+    deck = [(rank, color) for rank in ranks for color in colors]
+
+    #recreate the deck in no particular order
+    random.shuffle(deck)
+    random.shuffle(deck)
+
+    return deck
+
+#=== Deal out five cards ===
+def deal(deck, num):
+    hand = []
+    for x in range(num):
+        hand.append(deck.pop()) # add five cards to hand array as they are poped from deck tuple
+    return hand
+
+#=== Show user thier hand ===
+def show_hand(hand):
+    for pos, (rank, color ) in enumerate(hand): #use enumerate function to iterate through the hand array
+        print(f"{pos+1} - {rank} of {color}")
+
+
+#=== change cards ===
+def change_cards(deck,hand, num):
+    for x in range(num):
+        show_hand(hand)
+        while True:
+            num_cards = input(" which card do you wish to exchange? ")
+            if not num_cards.isnumeric() or int(num_cards)<1 or int(num_cards) > len(hand):
+                print("Invalid choice in card count. Please Try Again.")
+                continue
+            break
+        (rank, color) = hand[int(num_cards) - 1]
+        hand.remove((rank, color))# note that rank and color are considered one value so in () represents a tuple.
+            
+    new_hand = deal(deck, num)
+    return hand + new_hand
+
+
+
+# == Lets play ===
+deck = suffle()
+hand = deal(deck, 5)
+show_hand(hand)
+
+while True:
+    while True:
+        nchange =  input("How many cards do you want to change (up to three)?")
+        if not nchange.isnumeric() or int(nchange) > 4  :
+            print(" Invalid choice, please try again")
+            continue
+
+        nchange = int(nchange)
+        break
+
+    if nchange == 0:
+        break
+
+    hand = change_cards(deck, hand, nchange)
+    show_hand(hand)
