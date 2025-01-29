@@ -291,41 +291,51 @@ def show_hand(hand):
         print(f"{pos+1} - {rank} of {color}")
 
 
-#=== change cards ===
+#=== Exchange Cards by Index value inputed ===
+#---- First remove referenced entry until number of cards to exchange is met
+#---- Then deal a new card for each removed via the num variable
 def change_cards(deck,hand, num):
     for x in range(num):
         show_hand(hand)
         while True:
-            num_cards = input(" which card do you wish to exchange? ")
+            num_cards = input("*** Which CARD do you wish to exchange? ***")
             if not num_cards.isnumeric() or int(num_cards)<1 or int(num_cards) > len(hand):
                 print("Invalid choice in card count. Please Try Again.")
                 continue
             break
         (rank, color) = hand[int(num_cards) - 1]
-        hand.remove((rank, color))# note that rank and color are considered one value so in () represents a tuple.
+        hand.remove((rank, color))# note that rank and color are considered one value so in () that represents a tuple.
             
     new_hand = deal(deck, num)
     return hand + new_hand
 
 
 
-# == Lets play ===
+#=== Lets play ===========
 deck = suffle()
 hand = deal(deck, 5)
 show_hand(hand)
+first_exchange = True
 
-while True:
-    while True:
-        nchange =  input("How many cards do you want to change (up to three)?")
-        if not nchange.isnumeric() or int(nchange) > 4  :
-            print(" Invalid choice, please try again")
-            continue
+#=== Only allowed to exchange cards once
+while first_exchange == True:
+    nchange =  input("How many cards do you want to change (up to three)?")
+    if not nchange.isnumeric() or int(nchange) > 5  :
+        print(" Invalid choice, please try again")
+        continue
 
-        nchange = int(nchange)
-        break
+    nchange = int(nchange)
+    break
 
-    if nchange == 0:
-        break
+if first_exchange == True and nchange>0:
+    hand = change_cards(deck, hand, nchange)   
+    first_exchange = False   
 
-    hand = change_cards(deck, hand, nchange)
-    show_hand(hand)
+print("================================================")
+print("==== YOUR FINAL HAND ==== ")      
+show_hand(hand)
+print("================================================")
+print(" ==== MY HAND =====")
+deck = suffle()
+hand = deal(deck, 5)
+show_hand(hand)
