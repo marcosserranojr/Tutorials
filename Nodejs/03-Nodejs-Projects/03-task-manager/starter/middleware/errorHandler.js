@@ -12,7 +12,7 @@ const errorHandlerMiddleWare = (err,req,res,next)=>{
         return res.status(err.statusCode).json({msg: message});
     }   
     
-    return res.status(500).json({msg: "THERE WAS AN ISSUE PLEASE TRY AGAIN" });
+    return res.status(500).json({msg: "THERE WAS AN ISSUE PLEASE TRY AGAIN"+message });
 };
 
 module.exports = errorHandlerMiddleWare;

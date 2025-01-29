@@ -9,6 +9,7 @@ const {createCustomError} = require("../errors/custom-errors")
 const getAllTasks = asyncWrapper (async (req,res)=>{
     
         const tasks = await Task.find({});
+        //console.log(tasks);
         res.status(200).json({tasks});
    
 });
@@ -55,6 +56,8 @@ const deleteTasks = asyncWrapper(async (req,res)=>{
     
         const{id:taskID}=req.params;
         const task = await Task.findOneAndDelete({_id: taskID});
+
+        console.log(task);
         if(!task){
                 const message = `msg:NOT FOUND! Task id:${taskID}`;
                 return next(createCustomError(message, 404));       

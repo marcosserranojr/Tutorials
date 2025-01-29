@@ -52,6 +52,8 @@ app.use(errorHandlerMiddleWare); // Error handling
 // Express server PORT
 const port = process.env.PORT;
 
+console.log(process.env.MONGO_URI+process.env.DB);
+
 //============================================================================================
 // Database Connection
 // Anychronous function that calls a promise in the form of the DB connection function imported
